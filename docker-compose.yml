@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ml_notebook_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ml-notebook
+
+    container_name: my_ml_jupyter_container
+
+    ports:
+      - "8888:8888"  # Map host port 8888 to container port 8888
+
+    volumes:
+      # Map the ./my_ml_projects directory on the host
+      # to /workspace inside the container
+      - ./my_ml_projects:/workspace
+
+    # Keep STDIN open even if not attached and allocate a pseudo-TTY
+    # Good for interactive processes, though JupyterLab is a server.
+    # It doesn't hurt to have them.
+    stdin_open: true
+    tty: true
+
